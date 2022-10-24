@@ -24,12 +24,12 @@ public class BankAccountController {
         return ResponseEntity.status(HttpStatus.OK).body(repository.findById(Integer.parseInt(id)));
     }
 
-    @GetMapping("user-bank-account/{userID}")
+    @GetMapping("/user-bank-accounts/{userID}")
     public ResponseEntity<List<BankAccount>> getBankAccountByUserID(@PathVariable String userID) {
         return ResponseEntity.status(HttpStatus.OK).body(repository.findAllByUserID(userID));
     }
 
-    @PostMapping("/create-bank-account")
+    @PostMapping("/bank-account")
     public ResponseEntity<String> createBankAccount(@RequestBody BankAccount bankAccount) {
         repository.save(bankAccount);
         return ResponseEntity.status(HttpStatus.CREATED).body("Success, a new Bank Account has been added");
