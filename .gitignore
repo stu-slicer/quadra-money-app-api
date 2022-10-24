@@ -35,3 +35,4 @@ build/
 ### security
 
 src/main/resources/application-passwords.properties
+src/main/resources/application-remote.properties
