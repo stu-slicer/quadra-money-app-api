@@ -1,5 +1,6 @@
 package io.nology.quadra.moneyapp.rest;
 
+import io.nology.quadra.moneyapp.model.Currency;
 import io.nology.quadra.moneyapp.model.CurrencyRates;
 import io.nology.quadra.moneyapp.service.CurrencyService;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -8,6 +9,7 @@ import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 
 import java.io.FileNotFoundException;
+import java.util.List;
 
 import static io.nology.quadra.moneyapp.MoneyAppConstants.*;
 
@@ -20,8 +22,13 @@ public class CurrencyController {
     private CurrencyService currencyService;
 
     @GetMapping("/currencies")
-    public ResponseEntity<CurrencyRates> getCurrency() {
+    public ResponseEntity<CurrencyRates> getCurrencies() {
         return getByBaseCurrency( BASE_CURRENCY );
+    }
+
+    @GetMapping("/currency-symbols")
+    public ResponseEntity<List<Currency>> getCurrencySymbols() {
+        return ResponseEntity.status(HttpStatus.OK).body( this.currencyService.getCurrencies() );
     }
 
     @GetMapping("/currencies/{currency}")

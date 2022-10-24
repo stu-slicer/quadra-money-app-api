@@ -6,7 +6,6 @@ public class Currency {
 
     private String code;
     private String name;
-    private String flag;
 
     public String getCode() {
         return code;
@@ -22,14 +21,6 @@ public class Currency {
 
     public void setName(String name) {
         this.name = name;
-    }
-
-    public String getFlag() {
-        return flag;
-    }
-
-    public void setFlag(String flag) {
-        this.flag = flag;
     }
 
     @Override
@@ -50,7 +41,6 @@ public class Currency {
         final StringBuilder sb = new StringBuilder("Currency{");
         sb.append("code='").append(code).append('\'');
         sb.append(", name='").append(name).append('\'');
-        sb.append(", flag='").append(flag).append('\'');
         sb.append('}');
         return sb.toString();
     }
