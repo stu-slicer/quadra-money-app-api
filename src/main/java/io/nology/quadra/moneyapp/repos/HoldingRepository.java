@@ -12,13 +12,13 @@ import java.util.List;
 @Repository
 public interface HoldingRepository extends JpaRepository<Holding, String> {
 
-    @Query(value = "SELECT * FROM holdings WHERE userID = ?1", nativeQuery = true)
+    @Query(value = "FROM Holding WHERE userID = ?1")
     List<Holding> findAllHoldingByUserID(@Param("id") String id);
 
     Holding findById(int id);
 
     @Modifying
-    @Query(value = "UPDATE user_data.holdings SET amount = :amount WHERE userID = :userID AND currency_code = :currencyCode", nativeQuery = true)
+    @Query(value = "UPDATE holdings SET amount = :amount WHERE userID = :userID AND currency_code = :currencyCode", nativeQuery = true)
     void updateUserHolding(double amount, String userID, String currencyCode);
 
 }

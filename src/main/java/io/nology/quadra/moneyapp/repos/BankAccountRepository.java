@@ -12,6 +12,6 @@ public interface BankAccountRepository extends JpaRepository <BankAccount, Strin
 
     BankAccount findById(int id);
 
-    @Query(value = "SELECT * FROM bankAccounts WHERE userID = :userID", nativeQuery = true)
+    @Query(value = "FROM BankAccount where userID = :userID")
     List<BankAccount> findAllByUserID(String userID);
 }

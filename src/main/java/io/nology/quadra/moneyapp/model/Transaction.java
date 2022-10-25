@@ -11,8 +11,10 @@ public class Transaction {
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private int transactionId;
 
-    private String userFromId;
-    private String userToId;
+    @Column(name = "user_id_from")
+    private String userIDFrom;
+    @Column(name = "user_id_to")
+    private String userIDTo;
     private String currencyCodeFrom;
     private String currencyCodeTo;
     private double amountFrom;
@@ -27,12 +29,12 @@ public class Transaction {
         return transactionId;
     }
 
-    public String getUserFromId() {
-        return userFromId;
+    public String getUserIDFrom() {
+        return userIDFrom;
     }
 
-    public String getUserToId() {
-        return userToId;
+    public String getUserIDTo() {
+        return userIDTo;
     }
 
     public String getCurrencyCodeFrom() {
@@ -76,8 +78,8 @@ public class Transaction {
     public String toString() {
         final StringBuilder sb = new StringBuilder("Transaction{");
         sb.append("transactionId=").append(transactionId);
-        sb.append(", userFromId='").append(userFromId).append('\'');
-        sb.append(", userToId='").append(userToId).append('\'');
+        sb.append(", userFromId='").append(userIDFrom).append('\'');
+        sb.append(", userToId='").append(userIDTo).append('\'');
         sb.append(", currencyCodeFrom='").append(currencyCodeFrom).append('\'');
         sb.append(", currencyCodeTo='").append(currencyCodeTo).append('\'');
         sb.append(", amountFrom=").append(amountFrom);

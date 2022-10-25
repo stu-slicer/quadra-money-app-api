@@ -25,7 +25,7 @@ public class ContactController {
         return ResponseEntity.status(HttpStatus.OK).body(repository.findAll());
     }
 
-    @GetMapping("/contacts/{id}")
+    @GetMapping("/user-contacts/{id}")
     public ResponseEntity<List<Contact>>
     getContactsById(@PathVariable String id) {
         return ResponseEntity.status(HttpStatus.OK).body(repository.findAllContactsByUserID(id));
