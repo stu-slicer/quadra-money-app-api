@@ -3,6 +3,8 @@ package io.nology.quadra.moneyapp.rest;
 import io.nology.quadra.moneyapp.model.Currency;
 import io.nology.quadra.moneyapp.model.CurrencyRates;
 import io.nology.quadra.moneyapp.service.CurrencyService;
+import io.nology.quadra.moneyapp.service.JpaCurrencyService;
+import io.nology.quadra.moneyapp.service.WebCurrencyService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
@@ -19,29 +21,37 @@ import static io.nology.quadra.moneyapp.MoneyAppConstants.*;
 public class CurrencyController {
 
     @Autowired
-    private CurrencyService currencyService;
+    private WebCurrencyService webCurrencyService;
+
+    @Autowired
+    private JpaCurrencyService jpaCurrencyService;
 
     @GetMapping("/currencies")
     public ResponseEntity<CurrencyRates> getCurrencies() {
-        return getByBaseCurrency( BASE_CURRENCY );
+        return getByBaseCurrency( BASE_CURRENCY, false );
     }
 
     @GetMapping("/currency-symbols")
     public ResponseEntity<List<Currency>> getCurrencySymbols() {
-        return ResponseEntity.status(HttpStatus.OK).body( this.currencyService.getCurrencies() );
+        return ResponseEntity.status(HttpStatus.OK).body( this.jpaCurrencyService.getCurrencies() );
     }
 
     @GetMapping("/currencies/{currency}")
-    public ResponseEntity<CurrencyRates> getByBaseCurrency(@PathVariable String currency) {
-        try {
-            CurrencyRates currencyRates = currencyService.getCurrencyRates(currency);
-            return ResponseEntity.status(HttpStatus.OK).body(currencyRates);
-        } catch (Exception e) {
-            if (isFileNotFound(e)) {
-                return new ResponseEntity<>(HttpStatus.BAD_REQUEST);
+    public ResponseEntity<CurrencyRates> getByBaseCurrency(@PathVariable String currency,
+                                                           @RequestParam(required = false, defaultValue = "false") boolean live) {
+        CurrencyRates currencyRates = getCurrencyRates(currency, live);
+        return ResponseEntity.status(HttpStatus.OK).body(currencyRates);
+    }
+
+    private CurrencyRates getCurrencyRates(String currency, boolean live) {
+        if (!live) {
+            CurrencyRates currencyRatesFromDb = jpaCurrencyService.getCurrencyRates(currency);
+            if (currencyRatesFromDb != null) {
+                return currencyRatesFromDb;
             }
-            return new ResponseEntity<>(HttpStatus.INTERNAL_SERVER_ERROR);
         }
+        CurrencyRates currencyRatesFromWeb = webCurrencyService.getCurrencyRates(currency);
+        return currencyRatesFromWeb;
     }
 
     /**
