@@ -25,8 +25,8 @@ public class TransactionController {
     }
 
     @PostMapping("/transaction")
-    public ResponseEntity<String> makeTransaction(@RequestBody Transaction transaction) {
-        repository.save(transaction);
-        return ResponseEntity.status(HttpStatus.OK).body("transaction record added");
+    public ResponseEntity<Transaction> makeTransaction(@RequestBody Transaction transaction) {
+        Transaction saved = repository.save(transaction);
+        return ResponseEntity.status(HttpStatus.OK).body(saved);
     }
 }

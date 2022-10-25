@@ -30,9 +30,9 @@ public class BankAccountController {
     }
 
     @PostMapping("/bank-account")
-    public ResponseEntity<String> createBankAccount(@RequestBody BankAccount bankAccount) {
-        repository.save(bankAccount);
-        return ResponseEntity.status(HttpStatus.CREATED).body("Success, a new Bank Account has been added");
+    public ResponseEntity<BankAccount> createBankAccount(@RequestBody BankAccount bankAccount) {
+        BankAccount saved = repository.save(bankAccount);
+        return ResponseEntity.status(HttpStatus.CREATED).body( saved );
     }
 
 }

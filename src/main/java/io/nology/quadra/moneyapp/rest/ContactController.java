@@ -32,9 +32,9 @@ public class ContactController {
     }
 
     @PostMapping("/contact")
-    public ResponseEntity<String> createContact(@RequestBody Contact contact) {
-        repository.save(contact);
-        return ResponseEntity.status(HttpStatus.CREATED).body("Success, a new contact has been added");
+    public ResponseEntity<Contact> createContact(@RequestBody Contact contact) {
+        Contact saved = repository.save(contact);
+        return ResponseEntity.status(HttpStatus.CREATED).body(saved);
     }
 
     @DeleteMapping("/contact/{id}")

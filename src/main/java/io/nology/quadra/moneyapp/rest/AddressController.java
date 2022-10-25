@@ -36,9 +36,9 @@ public class AddressController {
     }
 
     @PostMapping("/address")
-    public ResponseEntity<String> createUser(@RequestBody Address address) {
-        repository.save(address);
-        return ResponseEntity.status(HttpStatus.CREATED).body("Success, a new address has been added");
+    public ResponseEntity<Address> createUser(@RequestBody Address address) {
+        Address saved = repository.save(address);
+        return ResponseEntity.status(HttpStatus.CREATED).body(saved);
     }
 
 }

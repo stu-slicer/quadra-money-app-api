@@ -32,9 +32,9 @@ public class UserController {
     }
 
     @PostMapping("/user")
-    public ResponseEntity<String> createUser(@RequestBody User user) {
-        repository.save(user);
-        return ResponseEntity.status(HttpStatus.CREATED).body("Success, a new user has been added");
+    public ResponseEntity<User> createUser(@RequestBody User user) {
+        User saved = repository.save(user);
+        return ResponseEntity.status(HttpStatus.CREATED).body( saved );
     }
 
 }

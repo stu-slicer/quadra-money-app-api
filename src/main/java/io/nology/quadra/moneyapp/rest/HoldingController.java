@@ -36,19 +36,20 @@ public class HoldingController {
     }
 
     @PostMapping("/holding")
-    public ResponseEntity<String> createHolding(@RequestBody Holding holding) {
-        repository.save(holding);
-        return ResponseEntity.status(HttpStatus.CREATED).body("Success, a new holding has been added");
+    public ResponseEntity<Holding> createHolding(@RequestBody Holding holding) {
+        Holding saved = repository.save(holding);
+        return ResponseEntity.status(HttpStatus.CREATED).body(saved);
     }
 
-    @PutMapping("/holdings")
+    @PutMapping("/holding")
     @Transactional
-    public ResponseEntity<String> updateUserHolding(@RequestBody Holding holding) {
+    public ResponseEntity<Holding> updateUserHolding(@RequestBody Holding holding) {
         String userID = holding.getUserID();
         double amount = holding.getAmount();
         String currencyCode = holding.getCurrencyCode();
         repository.updateUserHolding(amount, userID, currencyCode);
-        return ResponseEntity.status(HttpStatus.ACCEPTED).body("done");
+        Holding updated = repository.findById(holding.getId());
+        return ResponseEntity.status(HttpStatus.ACCEPTED).body( updated );
 
     }
 
