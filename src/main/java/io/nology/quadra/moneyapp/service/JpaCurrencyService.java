@@ -31,8 +31,4 @@ public class JpaCurrencyService extends AbstractCurrencyService implements Curre
         return null;
     }
 
-    @Override
-    public List<Currency> getCurrencies() {
-        return null;
-    }
 }
