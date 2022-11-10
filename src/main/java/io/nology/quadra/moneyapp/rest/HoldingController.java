@@ -14,7 +14,7 @@ import static io.nology.quadra.moneyapp.MoneyAppConstants.*;
 
 @RestController
 @RequestMapping(path = SERVICE_PREFIX)
-@CrossOrigin(origins = {ORIGIN_LOCALHOST_1, ORIGIN_LOCALHOST_2})
+@CrossOrigin()
 public class HoldingController {
 
     @Autowired
